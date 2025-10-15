@@ -21,7 +21,6 @@ using System.Runtime.CompilerServices; // For MethodImplOptions.AggressiveInlini
 using System.Text;
 using System.Threading.Tasks;
 using TOF.SimdVectorSharp;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 namespace CSChaCha20
 {
