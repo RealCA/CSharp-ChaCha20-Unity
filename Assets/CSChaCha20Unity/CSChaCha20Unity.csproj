@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- Target .NET Standard for Unity compatibility -->
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     
     <!-- NuGet Package Metadata -->
     <PackageId>LibChaCha20</PackageId>
