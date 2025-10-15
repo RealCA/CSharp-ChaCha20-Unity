@@ -6,7 +6,9 @@
           "files": [
             "Assets/CSChaCha20Unity/CSChaCha20Unity.csproj"
           ],
-		  "src": ".."
+	        "exclude": [
+	          "Assets/CSChaCha20Unity/Test/**"
+	        ]
         }
       ],
       "dest": "api",
