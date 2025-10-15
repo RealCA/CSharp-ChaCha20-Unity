@@ -3,9 +3,8 @@
     {
       "src": [
         {
-          "files": ["**/*.cs"],
-          "src": "Assets/CSChaCha20Unity",
-          "exclude": ["Tests/**"]
+          "files": ["Assets/CSChaCha20Unity/CSChaCha20Unity.csproj"],
+          "src": "..",
         }
       ],
       "dest": "api",
