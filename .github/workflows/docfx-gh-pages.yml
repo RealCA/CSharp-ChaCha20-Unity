@@ -27,14 +27,13 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: Install DocFX
+      - name: Install DocFX as .NET tool
         run: |
-          curl -L https://github.com/dotnet/docfx/releases/download/v2.62.0/docfx.zip -o docfx.zip
-          unzip -q docfx.zip -d docfx
-          chmod +x docfx/docfx
-          sudo mv docfx/docfx /usr/local/bin/docfx
+          dotnet tool install -g docfx
+          echo "$(dotnet tool list -g)"
+          echo "DocFX installed"
 
-      - name: Build DocFX documentation (verbose)
+      - name: Build DocFX documentation
         run: |
           cd docs
           docfx build docfx.json --warningsAsErrors false --verbose
