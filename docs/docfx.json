@@ -4,12 +4,13 @@
       "src": [
         {
           "files": [
+            "Assets/CSChaCha20Unity/CSChaCha20Unity.cs", 
+            "Assets/CSChaCha20Unity/SimdVectorSharp.cs",
             "Assets/CSChaCha20Unity/CSChaCha20Unity.csproj"
           ],
           "exclude": [
             "Assets/CSChaCha20Unity/Test/**"
-          ],
-		  "src": ".."
+          ]
         }
       ],
       "dest": "api",
