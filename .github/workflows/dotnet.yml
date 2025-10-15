@@ -8,20 +8,39 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version:
-          9.0.x
-    - name: Test
-      run: dotnet test Assets/CSChaCha20Unity/CSChaCha20Unity.csproj --verbosity normal --collect:"XPlat Code Coverage"
-    - name: Upload coverage files
+        dotnet-version: 6.0.x
+
+    - name: Install ReportGenerator (optional, helps with coverage paths)
+      run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+    - name: Run tests and generate cobertura coverage
+      run: |
+        dotnet test Assets/CSChaCha20Unity/CSChaCha20Unity.csproj \
+          --collect:"XPlat Code Coverage" \
+          -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+
+    - name: Locate coverage file
+      run: |
+        echo "Listing coverage files:"
+        find . -type f -name 'coverage.cobertura.xml'
+
+    - name: Upload coverage to Codacy
       env:
-        CODACY_PROJECT_TOKEN: ${{secrets.CODACY_PROJECT_TOKEN}}
-      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l CSharp $(find . -name 'coverage.cobertura.xml' -printf '-r %p ')
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      run: |
+        COVERAGE_FILE=$(find . -type f -name 'coverage.cobertura.xml' | head -n 1)
+        if [ -z "$COVERAGE_FILE" ]; then
+          echo "Coverage file not found!"
+          exit 1
+        fi
+        echo "Using coverage file: $COVERAGE_FILE"
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l CSharp -r "$COVERAGE_FILE"
       if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
