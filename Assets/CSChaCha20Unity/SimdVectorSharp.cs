@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace TOF.SimdVectorSharp
+namespace CSChaCha20Unity.SimdVectorSharp
 {
     public static class SimdNative
     {
