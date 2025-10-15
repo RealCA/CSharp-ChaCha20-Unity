@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
     <PackageId>LibChaCha20</PackageId>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Authors>Kaarlo Räihä</Authors>
     <Description>Managed C# library for ChaCha20 encrypting and decrypting</Description>
     <IncludeSource>true</IncludeSource>
@@ -16,37 +15,44 @@
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsAotCompatible>true</IsAotCompatible>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <!-- Compile all Unity C# files in Assets/CSChaCha20Unity -->
   <ItemGroup>
-    <Compile Remove="Test\**" />
-    <EmbeddedResource Remove="Test\**" />
-    <None Remove="Test\**" />
+    <Compile Include="Assets/CSChaCha20Unity\**\*.cs" />
   </ItemGroup>
 
+  <!-- Exclude test files -->
   <ItemGroup>
-    <None Remove="CSChaCha20Unity.cs.meta" />
-    <None Remove="Plugins.meta" />
-    <None Remove="Plugins\linux.meta" />
-    <None Remove="Plugins\linux\arm64.meta" />
-    <None Remove="Plugins\linux\arm64\libSimdVector.so.meta" />
-    <None Remove="Plugins\linux\x86_64.meta" />
-    <None Remove="Plugins\linux\x86_64\libSimdVector.so.meta" />
-    <None Remove="Plugins\macos.meta" />
-    <None Remove="Plugins\macos\arm64.meta" />
-    <None Remove="Plugins\macos\arm64\libSimdVector.dylib.meta" />
-    <None Remove="Plugins\macos\x86_64.meta" />
-    <None Remove="Plugins\macos\x86_64\libSimdVector.dylib.meta" />
-    <None Remove="Plugins\windows.meta" />
-    <None Remove="Plugins\windows\x86.meta" />
-    <None Remove="Plugins\windows\x86\SimdVector.dll.meta" />
-    <None Remove="Plugins\windows\x86_64.meta" />
-    <None Remove="Plugins\windows\x86_64\SimdVector.dll.meta" />
-    <None Remove="SimdVectorSharp.cs.meta" />
-    <None Remove="Test.meta" />
+    <Compile Remove="Tests\**\*.cs" />
+    <EmbeddedResource Remove="Tests\**\*" />
+    <None Remove="Tests\**\*" />
   </ItemGroup>
 
+  <!-- Include Unity plugin binaries -->
+  <ItemGroup>
+    <None Update="Assets/CSChaCha20Unity/Plugins/linux/arm64/libSimdVector.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets/CSChaCha20Unity/Plugins/linux/x86_64/libSimdVector.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets/CSChaCha20Unity/Plugins/macos/arm64/libSimdVector.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets/CSChaCha20Unity/Plugins/macos/x86_64/libSimdVector.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets/CSChaCha20Unity/Plugins/windows/x86/SimdVector.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets/CSChaCha20Unity/Plugins/windows/x86_64/SimdVector.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- SourceLink for GitHub -->
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -54,27 +60,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Plugins\linux\arm64\libSimdVector.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Plugins\linux\x86_64\libSimdVector.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Plugins\macos\arm64\libSimdVector.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Plugins\macos\x86_64\libSimdVector.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Plugins\windows\x86\SimdVector.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Plugins\windows\x86_64\SimdVector.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
+  <!-- CI-specific build property -->
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
