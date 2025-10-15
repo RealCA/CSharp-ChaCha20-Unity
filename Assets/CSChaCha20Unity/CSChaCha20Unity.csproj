@@ -19,10 +19,59 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="Test\**" />
+    <None Remove="Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="CSChaCha20Unity.cs.meta" />
+    <None Remove="Plugins.meta" />
+    <None Remove="Plugins\linux.meta" />
+    <None Remove="Plugins\linux\arm64.meta" />
+    <None Remove="Plugins\linux\arm64\libSimdVector.so.meta" />
+    <None Remove="Plugins\linux\x86_64.meta" />
+    <None Remove="Plugins\linux\x86_64\libSimdVector.so.meta" />
+    <None Remove="Plugins\macos.meta" />
+    <None Remove="Plugins\macos\arm64.meta" />
+    <None Remove="Plugins\macos\arm64\libSimdVector.dylib.meta" />
+    <None Remove="Plugins\macos\x86_64.meta" />
+    <None Remove="Plugins\macos\x86_64\libSimdVector.dylib.meta" />
+    <None Remove="Plugins\windows.meta" />
+    <None Remove="Plugins\windows\x86.meta" />
+    <None Remove="Plugins\windows\x86\SimdVector.dll.meta" />
+    <None Remove="Plugins\windows\x86_64.meta" />
+    <None Remove="Plugins\windows\x86_64\SimdVector.dll.meta" />
+    <None Remove="SimdVectorSharp.cs.meta" />
+    <None Remove="Test.meta" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Plugins\linux\arm64\libSimdVector.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\linux\x86_64\libSimdVector.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\macos\arm64\libSimdVector.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\macos\x86_64\libSimdVector.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\windows\x86\SimdVector.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\windows\x86_64\SimdVector.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
