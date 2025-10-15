@@ -1,4 +1,4 @@
-name: .NET
+name: .NET + Codacy Coverage
 
 on:
   push:
@@ -8,38 +8,43 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
 
-    - name: Run tests with coverage
+    - name: Restore NuGet packages
+      run: dotnet restore Assets/CSChaCha20Unity/CSChaCha20Unity.csproj
+
+    - name: Test with Coverage
       run: |
-        mkdir -p TestResults
+        # Run tests and collect code coverage using Coverlet
         dotnet test Assets/CSChaCha20Unity/CSChaCha20Unity.csproj \
           --collect:"XPlat Code Coverage" \
           --results-directory ./TestResults \
-          -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+          /p:CoverletOutputFormat=cobertura
 
-    - name: Locate coverage file
+    - name: Find coverage file
+      id: coverage
       run: |
         COVERAGE_FILE=$(find ./TestResults -type f -name 'coverage.cobertura.xml' | head -n 1)
         if [ -z "$COVERAGE_FILE" ]; then
           echo "Coverage file not found!"
           exit 1
         fi
-        echo "Coverage file found at: $COVERAGE_FILE"
-        echo "::set-output name=file::$COVERAGE_FILE"
-      id: find_coverage
+        echo "Coverage file found at $COVERAGE_FILE"
+        echo "COVERAGE_FILE=$COVERAGE_FILE" >> $GITHUB_ENV
 
     - name: Upload coverage to Codacy
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       run: |
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l CSharp -r "${{ steps.find_coverage.outputs.file }}"
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l CSharp -r "$COVERAGE_FILE"
       if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
