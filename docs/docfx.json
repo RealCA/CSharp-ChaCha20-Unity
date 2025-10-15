@@ -5,6 +5,7 @@
         {
           "files": [
             "Assets/CSChaCha20Unity/CSChaCha20Unity.cs"
+            "Assets/CSChaCha20Unity/SimdVectorSharp.cs"
           ],
 		  "src": ".."
         }
