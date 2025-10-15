@@ -19,7 +19,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup .NET
@@ -27,8 +27,8 @@ jobs:
         with:
           dotnet-version: 9.0.x
 
-      - name: Build project
-        run: dotnet build CSharp-ChaCha20-NetStandard/CSharp-ChaCha20-NetStandard.csproj -c Release
+      - name: Restore project
+        run: dotnet restore
 
       - name: Install DocFX
         run: |
@@ -36,12 +36,12 @@ jobs:
           unzip docfx.zip -d docfx
           sudo mv docfx/docfx /usr/local/bin/docfx
 
-      - name: Build DocFX site
+      - name: Build DocFX documentation
         run: |
           cd docs
           docfx build docfx.json
 
-      - name: Upload artifact
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/_site
