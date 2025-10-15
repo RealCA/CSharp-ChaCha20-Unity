@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2015, 2018 Scott Bennett
  *           (c) 2018-2023 Kaarlo Räihä
+ *           (c) 2025-2025 Abdulla Shuhair
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -22,7 +23,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TOF.SimdVectorSharp;
 
-namespace CSChaCha20
+namespace CSChaCha20Unity
 {
 
     /// <summary>

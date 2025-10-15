@@ -1,0 +1,30 @@
+[package]
+name = "SimdVector"
+version = "0.1.0"
+edition = "2021"
+authors = ["The-Orgin-Fortale"]
+license = "MIT OR Apache-2.0"
+description = "Cross-platform SIMD vector library in Rust"
+readme = "README.md"
+repository = "https://github.com/RealCA/CSharp-ChaCha20-Unity"
+keywords = ["simd", "ffi", "vector", "math"]
+categories = ["science", "mathematics", "external-ffi-bindings"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+# Optional platform-specific dependency block (not required for your current code)
+[target.'cfg(unix)'.dependencies]
+libc = { version = "0.2", optional = true }
+
+[features]
+default = []
