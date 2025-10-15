@@ -22,18 +22,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET (latest stable)
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
-      - name: Install DocFX as .NET tool
+      - name: Install DocFX
         run: |
           dotnet tool install -g docfx
-          echo "$(dotnet tool list -g)"
-          echo "DocFX installed"
+          echo "DocFX version:"
+          docfx --version
 
-      - name: Build DocFX documentation
+      - name: Generate API metadata
+        run: |
+          cd docs
+          docfx metadata docfx.json
+
+      - name: Build DocFX site
         run: |
           cd docs
           docfx build docfx.json --warningsAsErrors false --verbose
