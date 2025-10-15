@@ -20,11 +20,11 @@ YOu can find OLD .NET Standard and .NET 6 compatible version from [older branch]
 
 ## Documentation
 
-[Docs](https://mcraiha.github.io/CSharp-ChaCha20-NetStandard/api/index.html)
+[Docs](https://realca.github.io/CSharp-ChaCha20-Unity/api/index.html)
 
 ## How do I use this?
 
-Either copy the [CSChaCha20.cs](src/CSChaCha20.cs) to your project or use [LibChaCha20](https://www.nuget.org/packages/LibChaCha20/) nuget package 
+Either copy the [CSChaCha20.cs](Assets/CSChaCha20Unity/CSChaCha20.cs) to your project
 
 Then do code like
 ```csharp
@@ -150,22 +150,6 @@ public class ChaCha20Test : MonoBehaviour
     }
 }
 
-```
-
-You can try out the code in [.NET Fiddle](https://dotnetfiddle.net/4D6E5Z)
-
-## Test cases
-
-You can run test cases by moving to **tests** folder and running following command
-```bash
-dotnet test
-```
-
-## Benchmarks
-
-You can run benchmarks (which compare this implementation to the original version) by moving to **benchmarks** folder and running following command
-```bash
-dotnet run -c Release
 ```
 
 there are three different input sizes (64 bytes, 1024 bytes and 1 MiB) and comparisons are done between the original version (made by Scott Bennett) and this project
