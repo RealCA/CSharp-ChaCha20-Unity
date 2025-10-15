@@ -1,58 +1,78 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <!-- Target .NET Standard for Unity compatibility -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    
+    <!-- NuGet Package Metadata -->
     <PackageId>LibChaCha20</PackageId>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <Version>1.1.0</Version>
     <Authors>Kaarlo Räihä</Authors>
-    <Description>Managed C# library for ChaCha20 encrypting and decrypting</Description>
-    <IncludeSource>true</IncludeSource>
+    <Description>Managed C# library for ChaCha20 encryption and decryption</Description>
     <PackageProjectUrl>https://github.com/RealCA/CSharp-ChaCha20-Unity</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RealCA/CSharp-ChaCha20-Unity.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PackageLicenseExpression>ISC</PackageLicenseExpression>
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsAotCompatible>true</IsAotCompatible>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSource>true</IncludeSource>
   </PropertyGroup>
 
-  <!-- Compile all Unity C# files in Assets/CSChaCha20Unity -->
+  <!-- Include all Unity C# files -->
   <ItemGroup>
-    <Compile Include="Assets/CSChaCha20Unity\**\*.cs" />
+    <Compile Include="Assets/CSChaCha20Unity/**/*.cs" />
   </ItemGroup>
 
   <!-- Exclude test files -->
   <ItemGroup>
-    <Compile Remove="Tests\**\*.cs" />
-    <EmbeddedResource Remove="Tests\**\*" />
-    <None Remove="Tests\**\*" />
+    <Compile Remove="Tests/**/*.cs" />
+    <EmbeddedResource Remove="Tests/**" />
+    <None Remove="Tests/**" />
   </ItemGroup>
 
-  <!-- Include Unity plugin binaries -->
+  <!-- Include native plugin binaries for all platforms -->
   <ItemGroup>
-    <None Update="Assets/CSChaCha20Unity/Plugins/linux/arm64/libSimdVector.so">
+    <!-- Linux -->
+    <None Include="Assets/CSChaCha20Unity/Plugins/linux/arm64/libSimdVector.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-arm64/native/</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets/CSChaCha20Unity/Plugins/linux/x86_64/libSimdVector.so">
+    <None Include="Assets/CSChaCha20Unity/Plugins/linux/x86_64/libSimdVector.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-x64/native/</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets/CSChaCha20Unity/Plugins/macos/arm64/libSimdVector.dylib">
+
+    <!-- macOS -->
+    <None Include="Assets/CSChaCha20Unity/Plugins/macos/arm64/libSimdVector.dylib">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/osx-arm64/native/</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets/CSChaCha20Unity/Plugins/macos/x86_64/libSimdVector.dylib">
+    <None Include="Assets/CSChaCha20Unity/Plugins/macos/x86_64/libSimdVector.dylib">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/osx-x64/native/</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets/CSChaCha20Unity/Plugins/windows/x86/SimdVector.dll">
+
+    <!-- Windows -->
+    <None Include="Assets/CSChaCha20Unity/Plugins/windows/x86/SimdVector.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x86/native/</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets/CSChaCha20Unity/Plugins/windows/x86_64/SimdVector.dll">
+    <None Include="Assets/CSChaCha20Unity/Plugins/windows/x86_64/SimdVector.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x64/native/</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
-  <!-- SourceLink for GitHub -->
+  <!-- SourceLink for GitHub debugging -->
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -60,7 +80,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <!-- CI-specific build property -->
+  <!-- CI-specific property for GitHub Actions -->
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
