@@ -13,15 +13,30 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version:
-          6.0.x
-    - name: Test
-      run: dotnet test Assets/CSChaCha20Unity/CSChaCha20Unity.csproj --verbosity normal --collect:"XPlat Code Coverage"
-    - name: Upload coverage files
+        dotnet-version: 6.0.x
+
+    - name: Run tests with code coverage
+      run: |
+        dotnet test Assets/CSChaCha20Unity/CSChaCha20Unity.csproj  --verbosity normal --collect:"XPlat Code Coverage"
+
+    - name: Find coverage file
+      id: coverage
+      run: |
+        COVERAGE_FILE=$(find ./TestResults -type f -name 'coverage.cobertura.xml' | head -n 1)
+        if [ -z "$COVERAGE_FILE" ]; then
+          echo "Coverage file not found!"
+          exit 1
+        fi
+        echo "Coverage file found at $COVERAGE_FILE"
+        echo "COVERAGE_FILE=$COVERAGE_FILE" >> $GITHUB_ENV
+
+    - name: Upload coverage to Codacy
       env:
-        CODACY_PROJECT_TOKEN: ${{secrets.CODACY_PROJECT_TOKEN}}
-      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l CSharp $(find . -name 'coverage.cobertura.xml' -printf '-r %p ')
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      run: |
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l CSharp -r "$COVERAGE_FILE"
       if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
