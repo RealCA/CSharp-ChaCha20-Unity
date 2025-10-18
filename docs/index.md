@@ -9,7 +9,7 @@ Managed .Net (.NET 6) unity compatible [ChaCha20](https://en.wikipedia.org/wiki/
 [Documentation](api/) 
 
 ## How do I use this?
-Either copy the [CSChaCha20.cs](https://github.com/RealCA/CSharp-ChaCha20-Unity/blob/master/Assets/CSChaCha20Unity/CSChaCha20Unity.cs) to your project or use [LibChaCha20](https://www.nuget.org/packages/LibChaCha20/) nuget package
+Either copy the [CSChaCha20.cs](https://github.com/RealCA/CSharp-ChaCha20-Unity/blob/master/Assets/CSChaCha20Unity/CSChaCha20Unity.cs) to your project
 
 Then do code like
 ```csharp
