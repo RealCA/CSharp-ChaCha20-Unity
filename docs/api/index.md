@@ -2,7 +2,7 @@
 Only namespace is [CSChaCha20](CSChaCha20.html)
 
 ## How do I use this?
-Either copy the [CSChaCha20.cs](https://github.com/RealCA/CSharp-ChaCha20-Unity/blob/master/src/CSChaCha20.cs) to your project or use [LibChaCha20](https://www.nuget.org/packages/LibChaCha20/) nuget package
+Either copy the [CSChaCha20.cs](https://github.com/RealCA/CSharp-ChaCha20-Unity/blob/master/src/CSChaCha20.cs) to your project
 
 Then do code like
 ```csharp
@@ -129,8 +129,6 @@ public class ChaCha20Test : MonoBehaviour
 }
 
 ```
-
-You can try out the code in [.NET Fiddle](https://dotnetfiddle.net/4D6E5Z)
 
 ## License
 
