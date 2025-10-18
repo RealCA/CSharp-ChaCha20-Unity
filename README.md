@@ -1,6 +1,6 @@
 # CSharp-ChaCha20-NetStandard
 
-Managed .Net (.NET 8) compatible [ChaCha20](https://en.wikipedia.org/wiki/Salsa20#ChaCha_variant) cipher written in C#
+Managed .Net (.NET 6) unity compatible [ChaCha20](https://en.wikipedia.org/wiki/Salsa20#ChaCha_variant) cipher written in C# and using rust code to replace unsupported library System.Runtime.Intrinsics in orginal code (https://github.com/mcraiha/CSharp-ChaCha20-NetStandard/blob/58b7bd5f0774b304fb580ed4435e6789613a6e70/src/CSChaCha20.cs#L21C1-L21C33)
 
 ## Build status
 ![.NET](https://github.com/mcraiha/CSharp-ChaCha20-NetStandard/workflows/.NET/badge.svg)
@@ -12,11 +12,8 @@ Because I needed this for my personal project
 
 ## Origin
 
-**Scott Bennett** wrote C# implementation called [ChaCha20-csharp](https://github.com/sbennett1990/ChaCha20-csharp), which works as base for my code. That is why the license is same for both projects 
-
-## Older versions
-
-YOu can find OLD .NET Standard and .NET 6 compatible version from [older branch](https://github.com/mcraiha/CSharp-ChaCha20-NetStandard/tree/netstandard20andnet6)
+**Scott Bennett** wrote C# implementation called [ChaCha20-csharp](https://github.com/sbennett1990/ChaCha20-csharp), which **Kaarlo Räihä
+** modified to make (https://github.com/mcraiha/CSharp-ChaCha20-NetStandard) which works as base for my code. That is why the license is same for all the projects 
 
 ## Documentation
 
@@ -151,8 +148,6 @@ public class ChaCha20Test : MonoBehaviour
 }
 
 ```
-
-there are three different input sizes (64 bytes, 1024 bytes and 1 MiB) and comparisons are done between the original version (made by Scott Bennett) and this project
 
 ## License
 
