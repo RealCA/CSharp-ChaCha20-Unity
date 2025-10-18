@@ -226,6 +226,7 @@ namespace CSChaCha20Unity
 
         private static SimdMode DetectSimdMode()
         {
+#if !(UNITY_PS4 || UNITY_PS5 || UNITY_XBOXONE || UNITY_GAMECORE || UNITY_SWITCH)
             if (Vector512.IsHardwareAccelerated)
             {
                 return SimdMode.V512;
@@ -238,6 +239,7 @@ namespace CSChaCha20Unity
             {
                 return SimdMode.V128;
             }
+#endif
 
             return SimdMode.None;
         }
@@ -733,14 +735,17 @@ namespace CSChaCha20Unity
 
                 if (simdMode == SimdMode.V512)
                 {
+#if !(UNITY_PS4 || UNITY_PS5 || UNITY_XBOXONE || UNITY_GAMECORE || UNITY_SWITCH)
                     // 1 x 64 bytes
                     Vector512 inputV = Vector512.Create(input, offset);
                     Vector512 tmpV = Vector512.Create(tmp, 0);
                     Vector512 outputV = inputV ^ tmpV;
                     outputV.CopyTo(output, offset);
+#endif
                 }
                 else if (simdMode == SimdMode.V256)
                 {
+#if !(UNITY_PS4 || UNITY_PS5 || UNITY_XBOXONE || UNITY_GAMECORE || UNITY_SWITCH)
                     // 2 x 32 bytes
                     Vector256 inputV = Vector256.Create(input, offset);
                     Vector256 tmpV = Vector256.Create(tmp, 0);
@@ -751,9 +756,11 @@ namespace CSChaCha20Unity
                     tmpV = Vector256.Create(tmp, 32);
                     outputV = inputV ^ tmpV;
                     outputV.CopyTo(output, offset + 32);
+#endif
                 }
                 else if (simdMode == SimdMode.V128)
                 {
+#if !(UNITY_PS4 || UNITY_PS5 || UNITY_XBOXONE || UNITY_GAMECORE || UNITY_SWITCH)
                     // 4 x 16 bytes
                     Vector128 inputV = Vector128.Create(input, offset);
                     Vector128 tmpV = Vector128.Create(tmp, 0);
@@ -774,6 +781,7 @@ namespace CSChaCha20Unity
                     tmpV = Vector128.Create(tmp, 48);
                     outputV = inputV ^ tmpV;
                     outputV.CopyTo(output, offset + 48);
+#endif
                 }
                 else
                 {
