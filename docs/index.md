@@ -1,5 +1,6 @@
 # CSharp-ChaCha20-NetStandard
-Managed .Net (.NET 8) compatible [ChaCha20](https://en.wikipedia.org/wiki/Salsa20#ChaCha_variant) cipher written in C#
+
+Managed .Net (.NET 6) unity compatible [ChaCha20](https://en.wikipedia.org/wiki/Salsa20#ChaCha_variant) cipher written in C# and using rust code to replace unsupported library System.Runtime.Intrinsics in orginal code (https://github.com/mcraiha/CSharp-ChaCha20-NetStandard/blob/58b7bd5f0774b304fb580ed4435e6789613a6e70/src/CSChaCha20.cs#L21C1-L21C33)
 
 ## GitHub
 [CSharp-ChaCha20-Unity](https://github.com/RealCA/CSharp-ChaCha20-Unity)
